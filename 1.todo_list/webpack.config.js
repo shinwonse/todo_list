@@ -1,6 +1,6 @@
-const HTMLWebpackPlugin = require('html-webpack-plugin');
-const webpack = require('webpack');
 const path = require('path'); // node에서 제공하는 path 모듈
+const HTMLWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
   entry: './src/index.js',
@@ -39,6 +39,7 @@ module.exports = {
   plugins: [
     new HTMLWebpackPlugin({
       template: path.resolve(__dirname, 'src', 'index.html')
-    })
+    }),
+    new CleanWebpackPlugin() // 빌드할 때, 전에 쌓여있던 불필요한거(이미지 등)삭제
   ]
 }

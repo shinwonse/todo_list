@@ -1,6 +1,6 @@
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
-const path = require('path');
+const path = require('path'); // node에서 제공하는 path 모듈
 
 module.exports = {
   mode: 'development',

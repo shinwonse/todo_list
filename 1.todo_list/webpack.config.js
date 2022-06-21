@@ -3,7 +3,6 @@ const webpack = require('webpack');
 const path = require('path'); // node에서 제공하는 path 모듈
 
 module.exports = {
-  mode: 'development',
   entry: './src/index.js',
   output: {
     // 번들링된 파일의 이름

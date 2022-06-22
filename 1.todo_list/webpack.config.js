@@ -1,16 +1,18 @@
-const path = require('path'); // node에서 제공하는 path 모듈
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
   entry: './src/index.js',
-  output: {
-    // 번들링된 파일의 이름
-    filename: 'bundle.js',
-    // __dirname => 현재 webpack.config.js 파일이 위치한 경로를 알려주는 node.js의 약속된 변수, 
-    // './dist' => 번들링된 파일을 저장할 위치
-    path: path.resolve(__dirname, './dist') 
-  },
+  // output: {
+  //   path: './dist',
+  // },
+  // output: {
+  //   // 번들링된 파일의 이름
+  //   filename: 'bundle.js',
+  //   // __dirname => 현재 webpack.config.js 파일이 위치한 경로를 알려주는 node.js의 약속된 변수, 
+  //   // './dist' => 번들링된 파일을 저장할 위치
+  //   // path: path.resolve(__dirname, './dist') 
+  // },
   devServer: {
     hot: true
   },
@@ -38,7 +40,7 @@ module.exports = {
   },
   plugins: [
     new HTMLWebpackPlugin({
-      template: path.resolve(__dirname, 'src', 'index.html')
+      template: './src/index.html'
     }),
     new CleanWebpackPlugin() // 빌드할 때, 전에 쌓여있던 불필요한거(이미지 등)삭제
   ]

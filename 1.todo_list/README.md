@@ -1,5 +1,10 @@
 # webpack 설정부터
 
+## webpack을 사용하는 이유는?
+
+## loader와 plugin의 차이점은?
+
+## output을 쓰는 이유와 defer
 ---
 ### `querySelector`와 `getElementById`의 차이점?
 ```javascript

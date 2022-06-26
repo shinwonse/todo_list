@@ -2,6 +2,10 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   entry: './src/index.js',
+  output: {
+    filename: 'index.js',
+    assetModuleFilename: 'images/[name][ext]'
+  },
   module: {
     rules: [
       {

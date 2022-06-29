@@ -1,11 +1,8 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const path = require("path");
 
 module.exports = {
   entry: './src/index.js',
-  output: {
-    filename: 'index.js',
-    assetModuleFilename: 'images/[name][ext]'
-  },
   module: {
     rules: [
       {
@@ -15,9 +12,13 @@ module.exports = {
         // 여기서는 css-loader를 통과하면서 css 파일을 자바스크립트 파일에 끼워넣고 style-loader를 통과하면서 html 파일에 스타일 태그를 끼워넣는다.
       },
       {
-        // png, svg 파일을 출력 디렉토리로 내보내고 해당 경로를 번들에 삽입한다.
-        test: /\.(png|svg)$/i,
+        // png 파일을 출력 디렉토리로 내보내고 해당 경로를 번들에 삽입한다.
+        test: /\.png/,
         type: 'asset/resource'
+      },
+      {
+        test: /\.svg/,
+        type: 'asset/inline'
       },
       {
         test: /\.(js)$/,
@@ -31,5 +32,10 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/index.html'
     })
-  ]
+  ],
+  resolve: {
+    alias: {
+      styles: path.resolve(__dirname, './src/styles/'),
+    }
+  }
 }

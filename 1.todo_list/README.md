@@ -267,3 +267,29 @@ alert( user.name ); // John
 ***참고***
 [모던자바스크립트 튜토리얼](https://ko.javascript.info/localstorage)
 [쿠키 vs 로컬스토리지](https://erwinousy.medium.com/%EC%BF%A0%ED%82%A4-vs-%EB%A1%9C%EC%BB%AC%EC%8A%A4%ED%86%A0%EB%A6%AC%EC%A7%80-%EC%B0%A8%EC%9D%B4%EC%A0%90%EC%9D%80-%EB%AC%B4%EC%97%87%EC%9D%BC%EA%B9%8C-28b8db2ca7b2)
+
+### ⭐️ 이벤트 위임 적용
+이벤트 위임이란 무엇일까? 이벤트 위임을 한 문장으로 요약하면 '하위 요소에 각각 이벤트를 붙이지 않고 상위 요소에서 하위 요소의 이벤트들을 제어하는 방식'이다.
+```html
+<h1>오늘의 할 일</h1>
+<ul class="itemList">
+  <li>
+    <input type="checkbox" id="item1">
+    <label for="item1">이벤트 버블링 학습</label>
+  </li>
+  <li>
+    <input type="checkbox" id="item2">
+    <label for="item2">이벤트 캡쳐 학습</label>
+  </li>
+</ul>
+```
+```javascript
+const itemList = document.querySelector('.itemList');
+itemList.addEventListener('click', function(event) {
+	alert('clicked');
+});
+```
+화면의 모든 인풋 박스에 일일이 이벤트 리스너를 추가하는 대신 인풋 박스의 상위 요소인 ul 태그, .itemList에 이벤트 리스너를 달아놓고 하위에서 발생한 클릭 이벤트를 감지한다. 
+
+***참고***
+[이벤트 버블링, 이벤트 캡처 그리고 이벤트 위임까지](https://joshua1988.github.io/web-development/javascript/event-propagation-delegation/#%EC%9D%B4%EB%B2%A4%ED%8A%B8-%EC%BA%A1%EC%B3%90---event-capture)

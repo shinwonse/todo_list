@@ -1,21 +1,38 @@
-import { addImg, title, todoForm, todoList } from './todoUI';
+import 'styles/reset.css';
+import 'styles/index.css';
+import addIcon from 'assets/add.svg';
+import { getCreateAddButton, getCreateElement } from './toDoUI';
+import { handleToDoSumit, paintToDo } from './toDoFunction';
 
-const handleToDoSubmit = (e) => {
-  e.preventDefault();
-  const newTodo = toDoInput.value;
-  toDoInput.value = '';
-  
+export const TODOS_KEY = 'TODOS';
+export const toDos = [];
+
+// 투두리스트에 필요한 element들을 생성
+const init = () => {
+  const rootDiv = document.getElementById("root");
+  const toDoForm = document.getElementById("todo-form");
+
+  const title = getCreateElement("h1", "TODO LIST");
+  const toDoInput = getCreateElement("input");
+  const toDoList = getCreateElement("ul", '', 'todo-list');
+  toDoInput.id = "todo-input";
+  const addButton = getCreateAddButton(addIcon);
+
+  toDoForm.appendChild(toDoInput);
+  toDoForm.appendChild(addButton);
+  toDoForm.addEventListener('submit', handleToDoSumit); // input과 button에게 이벤트 위임
+
+  rootDiv.appendChild(title);
+  rootDiv.appendChild(toDoForm);
+  rootDiv.appendChild(toDoList);
 }
 
-const paintToDo = (newTodo) => {
-  
+init();
+
+const savedToDos = localStorage.getItem(TODOS_KEY);
+
+if (savedToDos !== null) {
+  const parsedToDos = JSON.parse(savedToDos);
+  parsedToDos.forEach(v => toDos.push(v));
+  parsedToDos.forEach(paintToDo);
 }
-
-const rootBody = document.getElementById("root");
-rootBody.insertAdjacentHTML('afterbegin', title + todoForm + todoList);
-
-const addButton = document.getElementById("add-button");
-addButton.appendChild(addImg);
-addButton.addEventListener('click', handleToDoSubmit);
-
-const toDoInput = document.getElementById("todo-input");

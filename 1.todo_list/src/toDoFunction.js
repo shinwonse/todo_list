@@ -18,6 +18,7 @@ export const handleToDoSumit = (e) => {
 export const paintToDo = (newToDoObj) => {
   const toDoList = document.getElementById("todo-list");
   const li = getCreateElement("li");
+  li.id = newToDoObj.id;
   const span = getCreateElement("span", newToDoObj.text);
   const deleteButton = getCreateDeleteButton(deleteIcon);
 
@@ -34,6 +35,8 @@ export const saveToDo = () => {
 
 export const deleteToDo = (e) => {
   const li = e.target.parentElement.parentElement;
+  const deleteIndex = toDos.findIndex(toDo => toDo.id === JSON.parse(li.id));
+  toDos.splice(deleteIndex, 1);
   li.remove();
   saveToDo();
 };

@@ -29,6 +29,7 @@ HTTP는 TCP 연결 기반 위에서 동작하는 프로토콜로 신뢰성 확�
 webpack을 포함해서 rollup, parcel 등의 번들러가 존재하지만 webpack을 가장 많이 사용하는 이유는 아무래도 사용자가 많기 때문에 형성된 넓은 환경과 그 plugins의 존재 때문이라고 볼 수 있다.
 
 ***참고***
+
 [웹팩 document](https://webpack.kr/concepts/why-webpack/#root)
 [HTTP 알아보기](https://www.whatap.io/ko/blog/38/)
 
@@ -39,6 +40,7 @@ Compile: 어떠한 언어로 쓰여진 소스 코드를 컴퓨터가 이해할 �
 Transpile: source-to-source compile이라고도 알려져 있다. 그래서 사실 기본적으로는 transpile은 compile의 하위 개념으로 볼 수 있고 소스 코드를 다른 언어로 바꾸거나 같은 언어의 다른 버전으로 바꾸는 역할을 수행한다. 일반적으로 사람이 이해할 수 있는 언어로 바꾸기 때문에 이를 실행하기 위해서는 compile 과정이 또 필요하다.
 
 ***참고***
+
 [Compiler vs Transpiler](https://stackoverflow.com/questions/44931479/compiling-vs-transpiling)
 
 ### 1.3 loader와 plugin의 차이점은?
@@ -48,6 +50,7 @@ Transpile: source-to-source compile이라고도 알려져 있다. 그래서 사�
 `plugin`은 보통 번들링 마지막 프로세스에 bundle이나 chunk 레벨에 대해 동작한다. `plugin`은 번들 자체가 생성되는 방법을 수정할 수도 있다. `plugin`은 webpack의 기능을 확장시키거나 더 유연하게 하며 output에 영향을 준다. 
 
 ***참고***
+
 [Webpack Loader vs Plugin](https://dev.to/kamesh_dev/webpack-loader-vs-plugin-1l20)
 
 ### 1.4 output을 쓰는 이유와 defer
@@ -261,9 +264,6 @@ alert( user.name ); // John
 
 또한 로컬스토리지는 저장되는 단계에서 입력된 데이터를 평문 그대로 로컬 디스크에 저장하며, 파일의 형태로 디스크에 저장되기 때문에, Cross Site Scripting(XSS) 공격부터 물리적인 공격까지 다양한 악의적인 공격을 통해 파일의 내용을 열람하거나, 파일 자체를 네트워크를 통해 외부로 전송하는 것이 가능하다. 획득한 로컬스토리지 파일은 쉽게 수정이 가능하고, 값을 획득하였을 경우, 획득한 값을 이용하여 동일한 로컬스토리지를 생성하는 것 또한 가능하다. 또한 획득한 로컬스토리지 파일을 생성한 도메인이 아닌 다른 도메인에서 재사용이 가능하다. 따라서 민감한 데이터를 로컬스토리지에 저장하는 것은 추천되지 않는다.
 
-
-
-
 ***참고***
 [모던자바스크립트 튜토리얼](https://ko.javascript.info/localstorage)
 [쿠키 vs 로컬스토리지](https://erwinousy.medium.com/%EC%BF%A0%ED%82%A4-vs-%EB%A1%9C%EC%BB%AC%EC%8A%A4%ED%86%A0%EB%A6%AC%EC%A7%80-%EC%B0%A8%EC%9D%B4%EC%A0%90%EC%9D%80-%EB%AC%B4%EC%97%87%EC%9D%BC%EA%B9%8C-28b8db2ca7b2)
@@ -293,3 +293,4 @@ itemList.addEventListener('click', function(event) {
 
 ***참고***
 [이벤트 버블링, 이벤트 캡처 그리고 이벤트 위임까지](https://joshua1988.github.io/web-development/javascript/event-propagation-delegation/#%EC%9D%B4%EB%B2%A4%ED%8A%B8-%EC%BA%A1%EC%B3%90---event-capture)
+

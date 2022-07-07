@@ -294,3 +294,125 @@ itemList.addEventListener('click', function(event) {
 ***참고***
 [이벤트 버블링, 이벤트 캡처 그리고 이벤트 위임까지](https://joshua1988.github.io/web-development/javascript/event-propagation-delegation/#%EC%9D%B4%EB%B2%A4%ED%8A%B8-%EC%BA%A1%EC%B3%90---event-capture)
 
+## 3. Mission 3
+- [x] svg 태그로 인라인 써보기
+- [ ] png 인라인으로, 외부파일 두가지 장단점 비교, 어떤 상황에서 적용해야할지
+- [ ] paintToDo reflow repaint 과정 1회로 줄여보기 (줄이기 전에 1만개의 일을 추가해보고 줄인 후와 성능 비교해보기)
+- [ ] 로컬스토리지
+
+### ⭐️ 이벤트 전달 과정
+
+### ⭐️ 브라우저 렌더링 과정
+브라우저 렌더링 과정을 살펴보기 전에 먼저 살펴봐야할 핵심 키워드들을 정리해보자.
+#### 1. DOM
+브라우저가 HTML 코드를 읽을때, HTML element를 만나면 `Node`라는 JavaScript 객체를 생성한다. HTML elements가 자바스크립트 객체로 변환된다. 
+
+예를 들어, div element는 `HTMLDivElement`메서드로부터 Node 객체로 변환된다. 어쨌든 이렇게 브라우저가 HTML document로부터 노드 객체들을 생성한 후에, 이 노드 객체들로 트리 구조를 생성한다. HTML elements들이 서로 복잡하게 위치해있기 때문에, 브라우저는 그것을 HTML elements가 아닌 노드 객체들로 해당 구조를 복제하여 트리를 생성한다.
+
+> `DOM 노드`가 반드시 HTML element여야하는 것은 아니다. 브라우저가 DOM 트리를 만들 때 comments, attributes, text 같은 것들을 트리의 분리된 노드에 저장한다. 
+
+![img.png](img.png)
+
+자바스크립트는 DOM이 뭔지 알지 못한다. DOM은 브라우저에 의해 제공되는 `Web API`이기 때문이다.
+
+#### 2. CSSOM
+HTML elements에 스타일을 적용하는 방법은 외부 CSS 파일을 이용하거나, 인라인 style attribute를 이용하거나 자바스크립트를 이용하는 방법이 있을 것이다. 하지만 결국에는 브라우저가 CSS styles를 DOM elements에 적용해야한다. DOM 트리를 만들고 나서 브라우저는 모든 소스(external, embedded, inline, user-agent, etc.)로부터 CSS를 읽고 CSSOM을 생성한다. CSSOM은 마치 DOM과 같이 트리 구조로 되어있다.
+
+CSSOM의 각 노드는 DOM elements에 적용될 CSS style 정보를 가지고 있다. 하지만 `<meta>`, `<script>`, `<title>`과 같이 스크린에 표시되지 않을 DOM elements에 대해서는 정보를 가지고 있지 않다.
+![img_1.png](img_1.png)
+빨간 글씨로 표기되어있는 CSS property는 cascaded down된 것이다.
+
+#### 3. Render Tree
+`Render Tree`는 `DOM` 트리와 `CSSOM` 트리를 조합해서 만들어진다. 브라우저는 visible element의 layout을 계산 후 스크린에 그려야하는데 이때 `Render Tree`를 이용한다.
+
+`Render Tree`는 `pixel matrix`의 어떠한 부분도 차지하지 않는, 그러니까 화면에 보이지 않을 노드들을 포함하지 않는다. 예를 들어, `display: none;` elements는 `0px 0px`의 dimensions를 갖기 때문에 `Render Tree`에 포함되지 않는다.
+![img_2.png](img_2.png)
+
+#### 브라우저 렌더링 동작 과정
+렌더링의 기본적인 동작 과정은 다음과 같다.
+1. HTML 파일과 CSS 파일을 파싱해서 각각 Tree를 만든다. (Parsing)
+2. 두 Tree를 결합하여 Rendering Tree를 만든다. (Style)
+3. Rendering Tree에서 각 노드의 위치와 크기를 계산한다. (Layout)
+4. 계산된 값을 이용해 각 노드를 화면상의 실제 픽셀로 변환하고, 레이어를 만든다. (Paint)
+5. 레이어를 합성하여 실제 화면에 나타낸다. (Composite)
+
+***Parsing***
+
+브라우저가 페이지를 렌더링하려면 가장 먼저 받아온 HTML 파일을 해석해야한다. Parsing 단계는 HTML 파일을 해석하여 DOM(Document Object Model) Tree를 구성하는 단계이다.
+
+파싱 중 HTML에 CSS가 포함되어 있다면 CSSOM(CSS Object Model) Tree 구성 작업도 함께 진행한다.
+
+***Style***
+
+Style 단계에서는 Parsing 단계에서 생성된 DOM Tree와 CSSOM Tree를 매칭시켜서 Render Tree를 구성한다. Render Tree는 실제로 화면에 그려질 Tree이다.
+
+예를 들면 Render Tree를 구성할때 visibility: hidden은 요소가 공간을 차지하고, 보이지만 않기 때문에 Render Tree에 포함이 되지만, display: none 의 경우 Render Tree에서 제외된다.
+
+***Layout***
+Layout 단계에서는 Render Tree를 화면에 어떻게 배치해야 할 것인지 노드의 정확한 위치와 크기를 계산한다.
+
+루트부터 노드를 순회하면서 노드의 정확한 크기와 위치를 계산하고 Render Tree에 반영한다. 만약 크기 값을 %로 지정하였다면, Layout 단계에서 % 값을 계산해서 픽셀 단위로 변환한다.
+
+***Paint***
+
+Paint 단계에서는 Layout 단계에서 계산된 값을 이용해 Render Tree의 각 노드를 화면상의 실제 픽셀로 변환한다. 이때 픽셀로 변환된 결과는 하나의 레이어가 아니라 여러 개의 레이어로 관리된다.
+
+당연한 말이지만 스타일이 복잡할수록 Paint 시간도 늘어난다. 예를 들어, 단색 배경의 경우 시간과 작업이 적게 필요하지만, 그림자 효과는 시간과 작업이 더 많이 필요하다.
+
+***Composite***
+
+Composite 단계에서는 Paint 단계에서 생성된 레이어를 합성하여 실제 화면에 나타낸다. 우리는 화면에서 웹 페이지를 볼 수 있다.
+
+***참고***
+
+[How the browser renders a web page?](https://medium.com/jspoint/how-the-browser-renders-a-web-page-dom-cssom-and-rendering-df10531c9969)
+
+[브라우저 렌더링 과정 이해하기](https://tecoble.techcourse.co.kr/post/2021-10-24-browser-rendering/)
+
+### ⭐️ png 인라인으로, 외부파일 두가지 장단점 비교, 어떤 상황에서 적용해야할지
+
+#### Data URI
+웹팩 설정에서 `asset/inline` 모듈을 사용할 경우 애셋의 data URI를 내보낸다. 이때 Data URI가 무엇일까?
+
+Data URIs, 즉 `data:` 스킴이 접두어로 붙은 URL은 컨텐츠 작성자가 작은 파일을 문서 내에 ***인라인으로 임베드***할 수 있도록 해준다.
+
+Data URIs는 네 가지 파트로 구성된다. 접두사(data:), 데이터의 타입을 가리키는 MIME 타입, 텍스트가 아닌 경우 사용될 부가적인 `base64` 토큰 그리고 데이터 자체:
+
+`data:[<mediatype>][;base64],<data>`
+
+`mediatype` 이란, MIME 타입을 말한다(JPEG 이미지의 경우 'image/jpeg'). 만약 생략된다면, 기본 값으로 `text/plain;charset=US-ASCII`이 사용된다.
+
+데이터가 텍스트인 경우, 단순히 텍스트를 임베드할 수 있다. 그게 아니라면, base64로 인코딩된 이진 데이터를 임베드하기 위해 `base64`를 지정할 수 있다.
+
+#### png파일 인라인으로 적용하기
+```javascript
+export const paintToDo = (newToDoObj) => {
+  const toDoList = document.getElementById('todo-list');
+  const deleteImg = deleteIcon;
+  const toDo = `
+    <li id=${newToDoObj.id}>
+      <span>${newToDoObj.text}</span>
+      <button>
+        <img src=${deleteImg} alt='delete' />
+      </button>
+    </li>
+  `
+  toDoList.insertAdjacentHTML('beforeend',toDo);
+}
+```
+위에 적어놨다시피 `asset/inline` 모듈을 사용할 경우 `data URI` 를 반환해준다. 이를 인라인에 적용하기 위해서 위와 같이 코드를 작성하였다.
+
+![](../../../../../../var/folders/k9/bjzw0h7947l51j1q43_w6c080000gn/T/TemporaryItems/NSIRD_screencaptureui_jRxgWY/스크린샷 2022-07-07 오후 11.32.51.png)
+
+네트워크 탭을 살펴보니 memory cache돼있는 것을 볼 수 있다. 
+
+***참고***
+
+[MDN Data URIs](https://developer.mozilla.org/ko/docs/Web/HTTP/Basics_of_HTTP/Data_URLs)
+
+#### png파일 외부파일로 적용하기
+![](../../../../../../var/folders/k9/bjzw0h7947l51j1q43_w6c080000gn/T/TemporaryItems/NSIRD_screencaptureui_qbiBpj/스크린샷 2022-07-07 오후 11.39.53.png)
+
+웹팩 문서에 따르면 웹팩은 기본 조건에 따라서 `resource`와 `inline`중에서 자동으로 선택한다고 한다. 크기가 8kb 미만인 파일은 `inline`모듈로 처리되고 그렇지 않으면 `resource`모듈로 처리된다.
+
+따라서 크기가 작은 파일은 inline 모듈, 비교적 큰 파일은 resource 모듈로 처리하는 것이 효과적이라고 볼 수 있다.

@@ -369,6 +369,9 @@ Composite 단계에서는 Paint 단계에서 생성된 레이어를 합성하여
 
 [브라우저 렌더링 과정 이해하기](https://tecoble.techcourse.co.kr/post/2021-10-24-browser-rendering/)
 
+### ⭐️ repaint와 reflow
+
+
 ### ⭐️ png 인라인으로, 외부파일 두가지 장단점 비교, 어떤 상황에서 적용해야할지
 
 #### Data URI

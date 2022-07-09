@@ -1,11 +1,11 @@
-// inlining assets
-export const getCreateAddButton = (src) => {
-  const button = document.createElement("button");
-  button.style.width = "13px";
-  button.style.height = "13px";
-  button.style.background = `url(${src})`;
-  return button;
-}
+// // inlining assets
+// export const getCreateAddButton = (src) => {
+//   const button = document.createElement("button");
+//   // button.style.width = "13px";
+//   // button.style.height = "13px";
+//   // button.style.background = `url(${src})`;
+//   return button;
+// }
 
 // resource assets
 export const getCreateDeleteButton = (src) => {

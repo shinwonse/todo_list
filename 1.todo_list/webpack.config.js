@@ -16,12 +16,12 @@ module.exports = {
       },
       {
         // png 파일을 출력 디렉토리로 내보내고 해당 경로를 번들에 삽입한다.
-        test: /\.png/,
-        type: 'asset/resource'
+        // test: /\.png/,
+        // type: 'asset/resource'
       },
       {
         test: /\.(svg|png)/,
-        type: 'asset/inline'
+        type: 'asset/resource'
       },
       {
         test: /\.(js)$/,

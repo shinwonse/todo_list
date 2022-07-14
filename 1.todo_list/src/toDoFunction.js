@@ -1,4 +1,4 @@
-import deleteIcon from './assets/delete.png';
+import moreIcon from './assets/more.svg';
 import { nanoid } from 'nanoid';
 
 export const TODOS_KEY = 'TODOS';
@@ -19,10 +19,10 @@ export const handleToDoSubmit = (e) => {
 export const paintToDo = (newToDoObj) => {
   const toDoList = document.getElementById('todo-list');
   const toDo = `
-    <li id=${newToDoObj.id}>
+    <li id=${newToDoObj.id} class='todo-li'>
       <span>${newToDoObj.text}</span>
-      <button>
-        <img src=${deleteIcon} alt='delete' />
+      <button id='more-button'>
+        <img src=${moreIcon} alt='more' />
       </button>
     </li>
   `
@@ -30,8 +30,9 @@ export const paintToDo = (newToDoObj) => {
 }
 
 export const saveToDo = (newToDoObj) => {
-  const test = localStorage.getItem(TODOS_KEY);
-  console.log(test);
+  const storedToDos = JSON.parse(localStorage.getItem(TODOS_KEY)) || [];
+  storedToDos.push(newToDoObj);
+  localStorage.setItem(TODOS_KEY, JSON.stringify(storedToDos));
 };
 
 export const deleteToDo = ({ target }) => {
@@ -46,3 +47,11 @@ export const deleteToDo = ({ target }) => {
   li.remove();
   saveToDo();
 };
+
+export const showMoreOptions = ({ target }) => {
+  const modal = document.getElementById('modal-container');
+  if (!target.closest('button')) {
+    return;
+  }
+  modal.classList.add('show-modal');
+}

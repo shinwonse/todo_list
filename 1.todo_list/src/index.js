@@ -1,12 +1,12 @@
 import 'styles/reset.css';
 import 'styles/index.css';
-import {deleteToDo, handleToDoSubmit, paintToDo, TODOS_KEY, toDos} from './toDoFunction';
+import { handleToDoSubmit, paintToDo, TODOS_KEY, toDos, showMoreOptions } from './toDoFunction';
 import addIcon from './assets/add.svg';
+import {closeModal, modal} from "./modal";
 
 const init = () => {
   const rootDiv = document.getElementById('root');
   const toDoForm = document.getElementById('todo-form');
-  const toDoList = document.getElementById('todo-list');
 
   const toDoFormContents = `
     <div id='content-wrapper'>
@@ -19,15 +19,24 @@ const init = () => {
       <ul id='todo-list'>
     </div>
   `
+  toDoForm.insertAdjacentHTML('beforeend', toDoFormContents);
+  toDoForm.insertAdjacentHTML('beforeend', modal);
+  toDoForm.addEventListener('submit', handleToDoSubmit);
 
-  toDoForm.insertAdjacentHTML('beforeend',toDoFormContents);
   rootDiv.appendChild(toDoForm);
 
-  toDoForm.addEventListener('submit', handleToDoSubmit);
-  // toDoList.addEventListener('click', deleteToDo);
+  const toDoList = document.getElementById('todo-list');
+  const closeButton = document.querySelector('.close-button');
+  toDoList.addEventListener('click', showMoreOptions)
+  closeButton.addEventListener('click', closeModal);
 }
 
 init();
+
+window.addEventListener('click', (e) => {
+  const modalContainer = document.getElementById('modal-container');
+  e.target === modalContainer ? modalContainer.classList.remove('show-modal') : false
+})
 
 const savedToDos = localStorage.getItem(TODOS_KEY);
 

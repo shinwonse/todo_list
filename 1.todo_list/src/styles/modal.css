@@ -1,4 +1,4 @@
-#modal-container {
+.modal-container {
     position: fixed;
     display: none;
     width: 100%;
@@ -6,7 +6,7 @@
     background: rgba(0, 0, 0, 0.5);
 }
 
-#modal-container.show-modal {
+.modal-container.show-modal {
     display: block;
 }
 

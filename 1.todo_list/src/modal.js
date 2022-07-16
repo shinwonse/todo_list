@@ -4,18 +4,18 @@ import editButton from './assets/pencil.svg';
 import deleteButton from './assets/trash.svg';
 
 export const modal = `
-  <div id='modal-container'>
+  <div class='modal-container'>
     <div id='modal-box'>
       <button class='close-button'>
         <img src=${closeButton} alt='close'/>
       </button>
       <div id='button-container'>
-        <button>
+        <button id='edit-button'>
           <img src=${editButton} alt='edit' class='modal-button-img'/>
           <p>수정</p>
         </button>
-        <button>
-          <img src=${deleteButton} alt='delete'    class='modal-button-img'/>
+        <button id='delete-button'>
+          <img src=${deleteButton} alt='delete' class='modal-button-img'/>
           <p>삭제</p>
         </button>
       </div>
@@ -29,6 +29,10 @@ export const closeModal = ({ target }) => {
     return;
   }
   modal.classList.remove('show-modal');
+}
+
+export const deleteToDo = () => {
+
 }
 
 

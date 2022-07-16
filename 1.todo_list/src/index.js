@@ -1,6 +1,6 @@
 import 'styles/reset.css';
 import 'styles/index.css';
-import { handleToDoSubmit, paintToDo, TODOS_KEY, toDos, showMoreOptions } from './toDoFunction';
+import {handleToDoSubmit, paintToDo, TODOS_KEY, toDos, showMoreOptions, deleteToDo, editToDo} from './toDoFunction';
 import addIcon from './assets/add.svg';
 import {closeModal, modal} from "./modal";
 
@@ -19,22 +19,26 @@ const init = () => {
       <ul id='todo-list'>
     </div>
   `
-  toDoForm.insertAdjacentHTML('beforeend', toDoFormContents);
-  toDoForm.insertAdjacentHTML('beforeend', modal);
+
+  toDoForm.insertAdjacentHTML('beforeend', toDoFormContents + modal);
   toDoForm.addEventListener('submit', handleToDoSubmit);
 
   rootDiv.appendChild(toDoForm);
 
   const toDoList = document.getElementById('todo-list');
   const closeButton = document.querySelector('.close-button');
-  toDoList.addEventListener('click', showMoreOptions)
+  const deleteButton = document.getElementById('delete-button');
+  const editButton = document.getElementById('edit-button');
+  toDoList.addEventListener('click', showMoreOptions);
   closeButton.addEventListener('click', closeModal);
+  deleteButton.addEventListener('click', deleteToDo);
+  editButton.addEventListener('click', editToDo);
 }
 
 init();
 
 window.addEventListener('click', (e) => {
-  const modalContainer = document.getElementById('modal-container');
+  const modalContainer = document.querySelector('.modal-container');
   e.target === modalContainer ? modalContainer.classList.remove('show-modal') : false
 })
 
@@ -45,4 +49,3 @@ if (savedToDos !== null) {
   parsedToDos.forEach(parsedToDo => toDos.push(parsedToDo));
   parsedToDos.forEach(paintToDo);
 }
-

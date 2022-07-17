@@ -37,6 +37,12 @@ const init = () => {
 
 init();
 
+const promise = new Promise(
+  function (resolve, reject) {
+
+  }
+)
+
 window.addEventListener('click', (e) => {
   const modalContainer = document.querySelector('.modal-container');
   e.target === modalContainer ? modalContainer.classList.remove('show-modal') : false

@@ -88,6 +88,7 @@ export const updateToDo = (text, toDoId) => {
   span.innerText = text;
 }
 
+// 모달 띄우기
 export const showMoreOptions = ({ target }) => {
   const modal = document.querySelector('.modal-container');
   const li = target.closest('li');

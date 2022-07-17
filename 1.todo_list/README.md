@@ -1,4 +1,105 @@
 # 📝 todo-list 만들기
+# 1. 퍼포먼스 측정 코드 작성하기
+
+한 번도 퍼포먼스를 측정하는 코드를 작성해본 경험이 없었기 때문에 그 방법에 대해 서칭을 했고 여러 라이브러리를 찾아볼 수 있었다. 나의 todo-list는 간단하게 유저에게 인풋을 받아 리스트에 추가하고 또 삭제할 수 있는 앱이었으므로 **인풋을 자동으로 추가하고 또 삭제해주며 그 성능을 측정하는 코드**가 필요했다.
+
+우선 테스트에 대한 정의를 알아보고, 자바스크립트 애플리케이션에서 사용할 수 있는 여러 라이브러리들을 알아보고 그것들을 비교하여 선택해보도록 한다.
+
+테스트란 소프트웨어가 개발자가 의도한대로 작동하는지 확인하는 과정이다. 이 과정은 출시 전에 반드시 필요한 과정이며, 사실 테스트를 공부해야겠다는 생각은 있었으나 애써 모른척했던 녀석이다.
+
+테스트의 종류는 여러가지가 있다. 그 중에서 개발자의 관점에서는 보통 범위에 따른 구분을 많이 사용한다. 범위에 따라서는 크게 단위 테스트, 통합 테스트, E2E 테스트로 구분할 수 있다.
+
+컴포넌트 단위 개발이 늘어나면서 컴포넌트 단위 테스트를 하며 개발하는 경우가 많아졌는데, 단위 테스트를 모두 통과한다 해도 모든 컴포넌트들이 함께 잘 동작할 것이라는 보장은 없다. 따라서 단위 테스트 이외에도 E2E 테스트까지 해야 잘 테스트된 앱이라고 볼 수 있다.
+
+[테스트](https://ui.toast.com/fe-guide/ko_TEST)
+
+[How to Test Your Apps using Jest, Testing Library, Cypress, and Supertest](https://www.freecodecamp.org/news/test-a-react-app-with-jest-testing-library-and-cypress/)
+
+[Should I use both Cypress and Jest together?](https://stackoverflow.com/questions/66217682/should-i-use-both-cypress-and-jest-together)
+
+주로 많이들 사용하는 테스팅 툴이 뭘까 찾아보았다.
+
+### a. Jest
+
+[Jest](https://jestjs.io/)
+
+프레임워크 소개에 따르면 단순함에 초점을 맞춘 자바스크립트 테스팅 프레임워크이며, 바벨, 타입스크립트, 노드, 리액트, 앵귤러, 뷰와 함께 사용할 수 있다고 하였다. 단순함에 초점을 맞췄다는 부분이 내가 수행하려는 목표에 부합하다는 느낌이 들었다. 오 그리고 무엇보다 페이스북에서 만들었다.
+
+Jest 이전에는 자바스크립트 코드를 테스트하려면 여러가지 테스팅 라이브러리를 조합해야만 했다고 한다. 하지만 Jest를 사용하면 별도의 라이브러리가 추가로 필요하지 않고 Jest 안에서 모든걸 제공해준다.
+
+### b. cypress
+
+[JavaScript End to End Testing Framework](https://www.cypress.io/)
+
+cypress는 **E2E 테스트**를 위한 도구다. E2E 테스트는 사용자의 입장에서 사용자에게 직접 노출되는 부분을 점검한다. cypress는 브라우저를 다룰 수 있는 별도의 드라이버를 만들어 사용한다. 실제 애플리케이션과 테스트 코드를 동일한 브라우저에서 실행하는 방식을 취하고 있으며, 이 방식은 HTTP 등을 사용한 프로세스 사이의 통신이 필요 없이 동일한 프로세스 내부에서 테스트를 실행하기 때문에 테스트를 훨씬 빠르고 안정적으로 실행할 수 있다. 또한 브라우저 기반의 GUI를 사용하여 테스트의 실행 상태를 확인하고 디버깅할 수 있는 다양한 편의 기능을 제공한다.
+
+# 2. id로 쓸 고유값은?
+
+`mysql` 에서 고유값을 생성하는 방법이 힌트였다. 바로 `UUID`이다.
+
+`UUID`는 사실 인강 들으면서 사용해본 적이 있다. 써드 파티 라이브러리로 있었던거 같은데… 여튼 `UUID`란 Universally Unique Indentifier로 소프트웨어 구축에 쓰이는 식별자 표준이다. `UUID` 표준에 따라 이름을 부여하면 고유성을 완벽하게 보장할 수는 없지만 실제 사용상에서 중복될 가능성이 거의 없다고 인정된다.
+
+[범용 고유 식별자 - 위키백과, 우리 모두의 백과사전](https://ko.wikipedia.org/wiki/%EB%B2%94%EC%9A%A9_%EA%B3%A0%EC%9C%A0_%EC%8B%9D%EB%B3%84%EC%9E%90)
+
+그렇다면 이제 바닐라자바스크립트에 `UUID`를 생성할 방법을 찾아봐야 한다.
+
+[How to create a GUID / UUID](https://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid)
+
+```jsx
+function uuidv4() {
+  return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+    (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+  );
+}
+```
+
+stackoverflow에서는 위의 방법과 `crypto.randomUUID()` api를 소개해주었다. 하지만 `crypto.randomUUID()` api는 지원율이 90퍼센트가 채 되지 않기 때문에 사용에 주의를 요한다.
+
+또 방법을 찾아보던 중 UUID가 아닌 nano id라는 것을 알게 되었다. [UUID와 nano id의 차이점](https://www.notion.so/46ea4d17aab545c2a0bf3301c6653d76)에 대해서는 외부 링크에 정리한다. 지원율과 호환성도 좋고 성능도 UUID보다 좋다는 장점 때문에 NanoID를 사용해보기로 마음 먹었다.
+
+# 3. toDos 삭제하기
+
+기존의 todo list 애플리케이션에서 toDos 배열을 만들어두고, 새로운 toDo가 생겼을 때 그 배열에 넣은 다음 localStorage에 toDos를 setItem하는 식이었는데, 이번에는 toDos를 삭제하도록 한다. 여태까지는 toDos로 이전의 toDo들을 기억하여 setItem시, 아이템이 덮어 씌여지는 것을 방지했는데 이제는 어떻게 해야할까?
+
+[adding new objects to localstorage](https://stackoverflow.com/questions/12162786/adding-new-objects-to-localstorage)
+
+```jsx
+export const saveToDo = (newToDoObj) => {
+  const storedToDos = JSON.parse(localStorage.getItem(TODOS_KEY)) || [];
+  storedToDos.push(newToDoObj);
+  localStorage.setItem(TODOS_KEY, JSON.stringify(storedToDos));
+};
+```
+
+위와 같은 코드로 정리하였다. 먼저 key로 조회하여 만약 아이템이 없을 경우 빈 배열을 storedToDos에 대입한다. saveToDo 함수 안에서 이전의 toDo들을 저장할 식별자를 선언하고 그곳에 push한 후 setItem하는 방식을 취하였다.
+
+# 4. 모달창 설계
+
+여러 방법을 생각하다가 나는 현재 내가 사용중인 todolist 어플을 모방해보고자 했다. 할 일 옆에 이름 모를 버튼을 누르면 모달 창이 나오고 거기서 수정과 삭제를 선택할 수 있다.
+
+그럼 모달창을 먼저 설계해야할 것 같다. 기본적으로 모달창은 켜졌을 때 주변 화면이 흐리게 표시되어 모달창에 집중할 수 있고, 또 모달창을 닫는 버튼이 있긴하지만, 사용자의 편의를 위해 모달창이 아닌 다른 화면을 클릭하였을 때도 모달창이 닫히게 설계해야한다.
+
+모달을 가장 기본적인 toDoFormContents에 insertAdjacentHTML로 달았다. (이에 따른 XSS 문제는 아직 해결하지 못했다.) 그리고 CSS로 사용자가 모달창 버튼을 누르기 전까지는 화면에 보이지 않게 하였다.
+
+![스크린샷 2022-07-16 오후 1.20.54.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/aa819892-980c-4e93-8000-26c25a86c5ed/스크린샷_2022-07-16_오후_1.20.54.png)
+
+그리고 그 결과 화면은 위와 같다. 모달창은 모달창을 닫을 수 있는 버튼과, 수정, 삭제를 선택할 수 있는 버튼으로 이루어져 있다. 사용자의 편의를 위해 버튼 클릭 이외에 모달창 밖의 영역을 클릭했을 때에도 모달창이 닫히게 구현하였다.
+
+# 5. 삭제하기 추가
+
+모달창에서 아이템을 삭제하기 위해서는 옵션 더보기 버튼이 클릭된 li의 id를 가져와서 그것을 로컬스토리지에서 삭제하면 될 것 같다.
+
+이때 모달의 id를 따로 지정해주지 않았음에도 불구하고 modal의 id를 콘솔에 찍어보면 li의 id와 같은걸 알 수 있었다. → 이유 찾아볼 것
+
+로컬스토리지에서 저장된 todo들을 불러와서 그 중 li의 id와 같은 아이템을 삭제한 후 로컬스토리지에 저장한다. 이후 해당 li element를 삭제하고 모달창을 닫는다.
+
+# 6. 수정하기 추가
+
+할 일을 수정하는 방법에는 여러가지가 있을 것이다. 할 일 li의 수정 버튼을 클릭하면 li 텍스트 자리에 input이 생겨 이를 변환하는 방법도 있을 것이고, 수정하기 버튼을 눌렀을때 수정할 내용을 입력하는 인풋을 가지고 있는 모달을 띄우는 방법도 있을 것이다. 이 중에 나는 모달에서 수정버튼을 클릭했을 때 li 텍스트 자리에 input이 생기는 방법을 선택하였다.
+
+input은 처음은 display: none 상태이지만 사용자가 수정 버튼을 클릭했을 때 display: block 상태로 변환된다. 이후 수정할 텍스트를 입력하면 다시 display: none의 형태로 돌아간다.
+
+
 ## 1. Mission 1
 ### 구현
 - todo list

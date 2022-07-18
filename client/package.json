@@ -23,7 +23,5 @@
     "webpack-cli": "^4.10.0",
     "webpack-dev-server": "^4.9.2"
   },
-  "dependencies": {
-    "nanoid": "^4.0.0"
-  }
+  "dependencies": {}
 }

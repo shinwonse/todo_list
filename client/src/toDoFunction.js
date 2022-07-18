@@ -2,7 +2,6 @@ import moreIcon from './assets/more.svg';
 import { nanoid } from 'nanoid';
 
 export const TODOS_KEY = 'TODOS';
-export const toDos = [];
 
 // 새로운 toDo가 submit됐을때
 export const handleToDoSubmit = (e) => {

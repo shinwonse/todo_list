@@ -1,6 +1,6 @@
 import 'styles/reset.css';
 import 'styles/index.css';
-import {handleToDoSubmit, paintToDo, TODOS_KEY, toDos, showMoreOptions, deleteToDo, editToDo} from './toDoFunction';
+import {handleToDoSubmit, paintToDo, TODOS_KEY, showMoreOptions, deleteToDo, editToDo} from './toDoFunction';
 import addIcon from './assets/add.svg';
 import {closeModal, modal} from "./modal";
 
@@ -37,12 +37,6 @@ const init = () => {
 
 init();
 
-const promise = new Promise(
-  function (resolve, reject) {
-
-  }
-)
-
 window.addEventListener('click', (e) => {
   const modalContainer = document.querySelector('.modal-container');
   e.target === modalContainer ? modalContainer.classList.remove('show-modal') : false
@@ -52,6 +46,5 @@ const savedToDos = localStorage.getItem(TODOS_KEY);
 
 if (savedToDos !== null) {
   const parsedToDos = JSON.parse(savedToDos);
-  parsedToDos.forEach(parsedToDo => toDos.push(parsedToDo));
   parsedToDos.forEach(paintToDo);
 }

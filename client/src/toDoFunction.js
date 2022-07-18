@@ -1,18 +1,20 @@
 import moreIcon from './assets/more.svg';
-import { nanoid } from 'nanoid';
 
 export const TODOS_KEY = 'TODOS';
+export const UNIQUE_ID_KEY = 'UNIQUE_ID';
 
-// 새로운 toDo가 submit됐을때
+// 새로운 toDo가 submit 됐을때
 export const handleToDoSubmit = (e) => {
   e.preventDefault();
   const toDoInput = document.getElementById("todo-input");
   const newToDo = toDoInput.value;
   toDoInput.value = '';
+  const uniqueId = JSON.parse(localStorage.getItem(UNIQUE_ID_KEY)) || { id: 0 };
   const newToDoObj = {
     text: newToDo,
-    id: nanoid()
+    id: uniqueId.id += 1
   };
+  localStorage.setItem(UNIQUE_ID_KEY, JSON.stringify(uniqueId));
   newToDo && (paintToDo(newToDoObj), saveToDo(newToDoObj));
 };
 

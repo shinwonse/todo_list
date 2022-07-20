@@ -1,8 +1,15 @@
 import 'styles/reset.css';
 import 'styles/index.css';
-import {handleToDoSubmit, paintToDo, TODOS_KEY, showMoreOptions, deleteToDo, editToDo} from './toDoFunction';
+import {
+  handleToDoSubmit,
+  paintToDo,
+  TODOS_KEY,
+  showMoreOptions,
+  deleteToDo,
+  editToDo,
+} from './toDoFunction';
 import addIcon from './assets/add.svg';
-import {closeModal, modal} from "./modal";
+import { closeModal, modal } from './modal';
 
 const init = () => {
   const rootDiv = document.getElementById('root');
@@ -18,7 +25,7 @@ const init = () => {
       </input>
       <ul id='todo-list'>
     </div>
-  `
+  `;
 
   toDoForm.insertAdjacentHTML('beforeend', toDoFormContents + modal);
   toDoForm.addEventListener('submit', handleToDoSubmit);
@@ -33,14 +40,16 @@ const init = () => {
   closeButton.addEventListener('click', closeModal);
   deleteButton.addEventListener('click', deleteToDo);
   editButton.addEventListener('click', editToDo);
-}
+};
 
 init();
 
 window.addEventListener('click', (e) => {
   const modalContainer = document.querySelector('.modal-container');
-  e.target === modalContainer ? modalContainer.classList.remove('show-modal') : false
-})
+  e.target === modalContainer
+    ? modalContainer.classList.remove('show-modal')
+    : false;
+});
 
 const savedToDos = localStorage.getItem(TODOS_KEY);
 

@@ -30,10 +30,3 @@ export const closeModal = ({ target }) => {
   }
   modal.classList.remove('show-modal');
 }
-
-export const deleteToDo = () => {
-
-}
-
-
-

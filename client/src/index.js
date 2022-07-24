@@ -15,24 +15,27 @@ const init = () => {
   const rootDiv = document.getElementById('root');
   const toDoForm = document.getElementById('todo-form');
 
+  // BEM 모델 적용
   const toDoFormContents = `
-    <div id='content-wrapper'>
-      <h1>TODO LIST</h1>
-      <input id='todo-input'>
-        <button id='add-button'>
+    <div class='todo-form'>
+      <h1 class='todo-form__title'>TODO LIST</h1>
+      <input class='todo-form__input'>
+        <button class='todo-form__button todo-form--submit'>
           <img src=${addIcon} alt='add'/>
         </button>
       </input>
-      <ul id='todo-list'>
     </div>
   `;
 
-  toDoForm.insertAdjacentHTML('beforeend', toDoFormContents + modal);
+  const toDoList = document.createElement('ul');
+  toDoList.className = 'todo-list'
+
+  toDoForm.insertAdjacentHTML('beforeend', toDoFormContents);
   toDoForm.addEventListener('submit', handleToDoSubmit);
 
   rootDiv.appendChild(toDoForm);
 
-  const toDoList = document.getElementById('todo-list');
+  // const toDoList = document.getElementById('todo-list');
   const closeButton = document.querySelector('.close-button');
   const deleteButton = document.getElementById('delete-button');
   const editButton = document.getElementById('edit-button');

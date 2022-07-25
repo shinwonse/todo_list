@@ -1,12 +1,14 @@
 import moreIcon from './assets/more.svg';
+import list from 'styles/list.module.css';
 
 export const TODOS_KEY = 'TODOS';
 export const UNIQUE_ID_KEY = 'UNIQUE_ID';
 
-// 새로운 toDo가 submit 됐을때
+import DOMPurify from 'dompurify'
+
 export const handleToDoSubmit = (e) => {
   e.preventDefault();
-  const toDoInput = document.getElementById("todo-input");
+  const toDoInput = document.querySelector('#todo-form input');
   const newToDo = toDoInput.value;
   toDoInput.value = '';
   const uniqueId = JSON.parse(localStorage.getItem(UNIQUE_ID_KEY)) || { id: 0 };
@@ -18,16 +20,14 @@ export const handleToDoSubmit = (e) => {
   newToDo && (paintToDo(newToDoObj), saveToDo(newToDoObj));
 };
 
-// toDo 그리기
 export const paintToDo = (newToDoObj) => {
   const toDoList = document.getElementById('todo-list');
   const toDo = `
-    <li id=${newToDoObj.id} class='todo-li'>
+    <li id=${newToDoObj.id} class=${list.li}>
       <span>${newToDoObj.text}</span>
-      <button id='more-button'>
+      <button class=${list.button}>
         <img src=${moreIcon} alt='more' />
       </button>
-      <input id='edit-input'/>
     </li>
   `
   toDoList.insertAdjacentHTML('beforeend',toDo);

@@ -1,5 +1,7 @@
 import 'styles/reset.css';
 import 'styles/index.css';
+import form from 'styles/form.module.css';
+import index from 'styles/index.module.css';
 import {
   handleToDoSubmit,
   paintToDo,
@@ -10,39 +12,32 @@ import {
 } from './toDoFunction';
 import addIcon from './assets/add.svg';
 import { closeModal, modal } from './modal';
+import DOMPurify from 'dompurify'
 
 const init = () => {
   const rootDiv = document.getElementById('root');
   const toDoForm = document.getElementById('todo-form');
 
-  // BEM 모델 적용
-  const toDoFormContents = `
-    <div class='todo-form'>
-      <h1 class='todo-form__title'>TODO LIST</h1>
-      <input class='todo-form__input'>
-        <button class='todo-form__button todo-form--submit'>
-          <img src=${addIcon} alt='add'/>
-        </button>
-      </input>
+  const toDoFormContents = DOMPurify.sanitize(`
+    <div class=${form.form}>
+      <h1 class=${form.title}>TODO LIST</h1>
+      <div class=${form.input__wrapper}>
+        <input class=${form.input} id='todo-input'>
+          <button class=${form.button}>
+            <img class=${form.button__img} src=${addIcon} alt='add'/>
+          </button>
+        </input>
+      </div>
     </div>
-  `;
+  `);
 
   const toDoList = document.createElement('ul');
-  toDoList.className = 'todo-list'
+  toDoList.id = 'todo-list';
 
   toDoForm.insertAdjacentHTML('beforeend', toDoFormContents);
   toDoForm.addEventListener('submit', handleToDoSubmit);
 
-  rootDiv.appendChild(toDoForm);
-
-  // const toDoList = document.getElementById('todo-list');
-  const closeButton = document.querySelector('.close-button');
-  const deleteButton = document.getElementById('delete-button');
-  const editButton = document.getElementById('edit-button');
-  toDoList.addEventListener('click', showMoreOptions);
-  closeButton.addEventListener('click', closeModal);
-  deleteButton.addEventListener('click', deleteToDo);
-  editButton.addEventListener('click', editToDo);
+  rootDiv.appendChild(toDoList);
 };
 
 init();

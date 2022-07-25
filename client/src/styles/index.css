@@ -12,13 +12,6 @@ body {
   height: 100vh;
 }
 
-h1 {
-  margin: 0 auto;
-  padding-top: 30px;
-  font-size: 50px;
-  text-align: center;
-}
-
 input {
   width: 450px;
   margin-right: 5px;
@@ -43,13 +36,6 @@ button {
 #todo-list {
   margin: 0 auto;
   width: 450px;
-}
-
-.todo-li {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-top: 15px;
 }
 
 #edit-input {

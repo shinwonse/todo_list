@@ -31,6 +31,7 @@
     "webpack-dev-server": "^4.9.2"
   },
   "dependencies": {
-    "@babel/runtime": "^7.18.9"
+    "@babel/runtime": "^7.18.9",
+    "dompurify": "^2.3.10"
   }
 }

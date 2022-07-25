@@ -9,9 +9,11 @@ import {
   showMoreOptions,
   deleteToDo,
   editToDo,
-} from './toDoFunction';
+  saveToDo,
+  newToDoObjArr
+} from './features';
 import addIcon from './assets/add.svg';
-import { closeModal, modal } from './modal';
+import { openModal } from './modal';
 import DOMPurify from 'dompurify'
 
 const init = () => {
@@ -22,8 +24,8 @@ const init = () => {
     <div class=${form.form}>
       <h1 class=${form.title}>TODO LIST</h1>
       <div class=${form.input__wrapper}>
-        <input class=${form.input} id='todo-input'>
-          <button class=${form.button}>
+        <input class=${form.input} id='todo-input' data-cy='input'>
+          <button class=${form.button} data-cy='input-button'>
             <img class=${form.button__img} src=${addIcon} alt='add'/>
           </button>
         </input>
@@ -33,6 +35,7 @@ const init = () => {
 
   const toDoList = document.createElement('ul');
   toDoList.id = 'todo-list';
+  toDoList.addEventListener('click', openModal);
 
   toDoForm.insertAdjacentHTML('beforeend', toDoFormContents);
   toDoForm.addEventListener('submit', handleToDoSubmit);
@@ -43,15 +46,25 @@ const init = () => {
 init();
 
 window.addEventListener('click', (e) => {
-  const modalContainer = document.querySelector('.modal-container');
-  e.target === modalContainer
-    ? modalContainer.classList.remove('show-modal')
+  const rootDiv = document.getElementById('root');
+  const modal = document.getElementById('modal_container');
+  e.target === modal
+    ? rootDiv.removeChild(modal)
     : false;
 });
 
-const savedToDos = localStorage.getItem(TODOS_KEY);
+window.addEventListener('DOMContentLoaded', (e) => {
+  e.preventDefault();
+  const savedToDos = localStorage.getItem(TODOS_KEY);
 
-if (savedToDos !== null) {
-  const parsedToDos = JSON.parse(savedToDos);
-  parsedToDos.forEach(paintToDo);
-}
+  if (savedToDos !== null) {
+    const parsedToDos = JSON.parse(savedToDos);
+    parsedToDos.forEach(paintToDo);
+  }
+})
+
+window.addEventListener('beforeunload', (e) => {
+  e.preventDefault();
+  e.returnValue = '';
+  saveToDo(newToDoObjArr)
+});

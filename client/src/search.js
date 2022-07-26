@@ -1,3 +1,5 @@
+import search from 'styles/search.module.css'
+
 export const filter = () => {
   const search = document.getElementById('search').value;
   const regExp = new RegExp(search, 'gi');
@@ -14,10 +16,10 @@ export const filter = () => {
 }
 
 export const Search = `
-  <div id='search_box'>
+  <div id='search_box' class=${search.box}>
     <label>
       검색: 
-      <input type='text' id='search' placeholder='할 일 검색'/>
+      <input type='text' id='search' class=${search.input} placeholder='할 일 검색'/>
     </label>
   </div>
 `;

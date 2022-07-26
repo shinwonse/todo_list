@@ -32,7 +32,8 @@ export const paintToDo = (newToDoObj) => {
         <img src=${moreIcon} alt='more' />
       </button>
     </li>
-  `;
+  `
+;
   toDoList.insertAdjacentHTML('beforeend', toDo);
 };
 
@@ -44,50 +45,50 @@ export const saveToDo = (newToDoObjArr) => {
   localStorage.setItem(TODOS_KEY, JSON.stringify(storedToDos));
 };
 
-export const deleteToDo = ({ target }) => {
+export const deleteToDo = ({ target }, toDoId) => {
   if (!target.closest('button')) {
     return;
   }
-  const modal = document.querySelector('.modal-container');
-  const li = document.getElementById(modal.id);
-
+  const rootDiv = document.getElementById('root');
+  const modal = document.getElementById('modal_container');
+  const li = document.getElementById(toDoId);
   const toDos = JSON.parse(localStorage.getItem(TODOS_KEY));
-  const deleteIndex = toDos.findIndex(toDo => toDo.id === li.id);
+  const deleteIndex = toDos.findIndex(toDo => toDo.id === Number(toDoId));
   toDos.splice(deleteIndex, 1);
-
   localStorage.setItem(TODOS_KEY, JSON.stringify(toDos));
   li.remove();
-  modal.classList.remove('show-modal');
+  rootDiv.removeChild(modal);
 };
 
 // toDo 수정 시작하기
-export const editToDo = ({ target }) => {
+export const startEditToDo = ({ target }, toDoId) => {
   if (!target.closest('button')) {
     return;
   }
-  const modal = document.querySelector('.modal-container');
-  const li = document.getElementById(modal.id);
-  const input = li.querySelector('input');
+  const rootDiv = document.getElementById('root');
+  const modal = document.getElementById('modal_container');
+  const li = document.getElementById(toDoId);
+  const input = document.createElement('input');
+  input.id = toDoId;
+  input.style.position = 'absolute'
   input.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
       updateToDo(e.target.value, li.id);
     }
   });
-  input.style.display = 'block';
-  modal.classList.remove('show-modal');
+  li.appendChild(input)
+  rootDiv.removeChild(modal);
 };
 
 // toDo 수정 작업하기
 export const updateToDo = (text, toDoId) => {
   const toDos = JSON.parse(localStorage.getItem(TODOS_KEY));
-  const replaceIndex = toDos.findIndex(toDo => toDo.id === toDoId);
+  const replaceIndex = toDos.findIndex(toDo => toDo.id === Number(toDoId));
   toDos[replaceIndex].text = text;
   localStorage.setItem(TODOS_KEY, JSON.stringify(toDos));
-
-  const modal = document.querySelector('.modal-container');
-  const li = document.getElementById(modal.id);
+  const li = document.getElementById(toDoId);
   const input = li.querySelector('input');
-  input.style.display = 'none';
   const span = li.querySelector('span');
   span.innerText = text;
+  li.removeChild(input);
 };

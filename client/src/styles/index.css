@@ -17,11 +17,6 @@ input {
   margin-right: 5px;
 }
 
-img {
-  width: 12px;
-  height: auto;
-}
-
 button {
   cursor: grab;
 }

@@ -10,11 +10,12 @@ import {
   deleteToDo,
   editToDo,
   saveToDo,
-  newToDoObjArr
+  newToDoObjArr,
 } from './features';
 import addIcon from './assets/add.svg';
 import { openModal } from './modal';
-import DOMPurify from 'dompurify'
+import { filter, Search } from './search';
+import DOMPurify from 'dompurify';
 
 const init = () => {
   const rootDiv = document.getElementById('root');
@@ -36,11 +37,14 @@ const init = () => {
   const toDoList = document.createElement('ul');
   toDoList.id = 'todo-list';
   toDoList.addEventListener('click', openModal);
+  toDoList.insertAdjacentHTML('afterbegin', Search)
 
   toDoForm.insertAdjacentHTML('beforeend', toDoFormContents);
   toDoForm.addEventListener('submit', handleToDoSubmit);
 
   rootDiv.appendChild(toDoList);
+  const searchInput = document.getElementById('search');
+  searchInput.onkeyup = filter
 };
 
 init();
@@ -48,23 +52,22 @@ init();
 window.addEventListener('click', (e) => {
   const rootDiv = document.getElementById('root');
   const modal = document.getElementById('modal_container');
-  e.target === modal
-    ? rootDiv.removeChild(modal)
-    : false;
+  e.target === modal ? rootDiv.removeChild(modal) : false;
 });
 
 window.addEventListener('DOMContentLoaded', (e) => {
   e.preventDefault();
+  e.returnValue = '';
   const savedToDos = localStorage.getItem(TODOS_KEY);
 
   if (savedToDos !== null) {
     const parsedToDos = JSON.parse(savedToDos);
     parsedToDos.forEach(paintToDo);
   }
-})
+});
 
 window.addEventListener('beforeunload', (e) => {
   e.preventDefault();
-  e.returnValue = '';
-  saveToDo(newToDoObjArr)
+  saveToDo(newToDoObjArr);
+  return;
 });

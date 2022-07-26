@@ -4,7 +4,6 @@
     "es2022": true
   },
   "extends": ["plugin:prettier/recommended"],
-  "plugins": ["prettier"], // prettier가 맨 뒤에 와서 다른 config들을 override해야함
   "parser": "@babel/eslint-parser",
   "parserOptions": {
     "requireConfigFile": false,

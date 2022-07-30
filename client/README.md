@@ -41,8 +41,30 @@
 
 ### 4주차 미션
 
+- 퍼포먼스 측정 코드 (node js)
+- 삭제하시겠습니까 모달 (자체 제작) 모달설계에 대한 충분한 고민
+- 디자인 수정 (div 높이, text button 좌우배치)
+- todos 삭제
+- id 고유값 (mysql....)
+- 수정하기 추가
+
 [4주차](https://shinwonse.notion.site/4-89c2b003c7d6416395890d4e4ad85aab)
 
 ### 5주차 미션
+- nanoID => mysql에서 가장 간단하게 unique 값을 만드는 방식을 도입할 것 (100%)
+- 웹사이트 킬때 restore 한번, 끌때 save 한번 => clustering 전후 성능 비교해보기
+- styling - inline, external styling => 장단점
+- BEM 모델 적용, css 모듈 방식 적용해보기 => 둘 중 뭐가 편한지
+- 로컬스토리지에 1만개 넣어두고 테스트해보기
+- eslint, prettier 설정하기 (문서읽고 완벽하게 설정하기) eslint plugin 2개이상설치
+- 우측 상단 => 검색 텍스트 인풋 (정규식 검색) => 검색 후 투두리스트에 검색결과만 남도록
+
+선언적 프로그래밍 고민해보기
+
+- svg png
+- 바벨설정
+- xss 위험 취약성 아예없애기
+- resize할때 스크립트가실행이 안되는데 최적화가 된이유
+- base64
 
 [5주차](https://shinwonse.notion.site/5-ba83ff9eac5a4239a031daf1af0138fa)

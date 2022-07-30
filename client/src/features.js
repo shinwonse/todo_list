@@ -33,7 +33,7 @@ export const paintToDo = (newToDoObj) => {
       </button>
     </li>
   `
-;
+  ;
   toDoList.insertAdjacentHTML('beforeend', toDo);
 };
 
@@ -41,7 +41,7 @@ export const saveToDo = (newToDoObjArr) => {
   const storedToDos = JSON.parse(localStorage.getItem(TODOS_KEY)) || [];
   newToDoObjArr.map(newToDoObj => {
     storedToDos.push(newToDoObj);
-  })
+  });
   localStorage.setItem(TODOS_KEY, JSON.stringify(storedToDos));
 };
 
@@ -70,13 +70,13 @@ export const startEditToDo = ({ target }, toDoId) => {
   const li = document.getElementById(toDoId);
   const input = document.createElement('input');
   input.id = toDoId;
-  input.style.position = 'absolute'
+  input.style.position = 'absolute';
   input.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
       updateToDo(e.target.value, li.id);
     }
   });
-  li.appendChild(input)
+  li.appendChild(input);
   rootDiv.removeChild(modal);
 };
 

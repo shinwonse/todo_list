@@ -22,12 +22,12 @@ const init = () => {
   const toDoForm = document.getElementById('todo-form');
 
   const toDoFormContents = DOMPurify.sanitize(`
-    <div class=${form.form}>
-      <h1 class=${form.title}>TODO LIST</h1>
-      <div class=${form.input__wrapper}>
-        <input class=${form.input} id='todo-input' data-cy='input'>
-          <button class=${form.button} data-cy='input-button'>
-            <img class=${form.button__img} src=${addIcon} alt='add'/>
+    <div class='${form.form}'>
+      <h1 class='${form.title}'>TODO LIST</h1>
+      <div class='${form.input__wrapper}'>
+        <input class='${form.input}' id='todo-input' data-cy='input'>
+          <button class='${form.button}' data-cy='input-button'>
+            <img class='${form.button__img}' src='${addIcon}' alt='add'/>
           </button>
         </input>
       </div>
@@ -37,14 +37,14 @@ const init = () => {
   const toDoList = document.createElement('ul');
   toDoList.id = 'todo-list';
   toDoList.addEventListener('click', openModal);
-  toDoList.insertAdjacentHTML('afterbegin', Search)
+  toDoList.insertAdjacentHTML('afterbegin', Search);
 
   toDoForm.insertAdjacentHTML('beforeend', toDoFormContents);
   toDoForm.addEventListener('submit', handleToDoSubmit);
 
   rootDiv.appendChild(toDoList);
   const searchInput = document.getElementById('search');
-  searchInput.onkeyup = filter
+  searchInput.onkeyup = filter;
 };
 
 init();

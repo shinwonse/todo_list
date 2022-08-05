@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router();
 
 router.get('/', (req, res) => {
-  res.send('hello todolist')
+  res.send('hello todolist hahahaha')
 })
 
 router.post('/:id', (req, res) => {

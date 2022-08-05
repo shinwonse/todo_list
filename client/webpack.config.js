@@ -2,10 +2,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 
 module.exports = {
-  entry: './src/index.js',
+  entry: './src/app.js',
   output: {
     clean: true,
-    assetModuleFilename: 'images/[name][ext]'
+    assetModuleFilename: 'images/[name][ext]',
   },
   module: {
     rules: [
@@ -30,8 +30,16 @@ module.exports = {
       },
       {
         test: /\.(svg|png)/,
-        type: 'asset/resource',
+        type: 'asset',
       },
+      // {
+      //   test: /\.(svg|png)/,
+      //   type: 'asset/resource',
+      // },
+      // {
+      //   test: /\.svg/,
+      //   type: 'asset/inline'
+      // },
       {
         test: /\.(js)$/,
         exclude: /node_modules/,
@@ -49,8 +57,9 @@ module.exports = {
   ],
   resolve: {
     alias: {
-      styles: path.resolve(__dirname, './src/styles/'),
-      assets: path.resolve(__dirname, './src/assets/'),
+      styles: path.resolve('./src/styles/'),
+      assets: path.resolve('./src/assets/'),
+      // assets: path.resolve(__dirname, './src/assets/'),
     },
   },
 };

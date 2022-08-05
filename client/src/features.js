@@ -1,11 +1,9 @@
 import moreIcon from './assets/more.svg';
 import list from 'styles/list.module.css';
-
+import DOMPurify from 'dompurify';
+import { getUniqueId } from './utils/uniqueId';
 export const TODOS_KEY = 'TODOS';
 export const UNIQUE_ID_KEY = 'UNIQUE_ID';
-
-import { openModal } from './modal.js';
-import DOMPurify from 'dompurify';
 
 export const newToDoObjArr = [];
 
@@ -14,32 +12,32 @@ export const handleToDoSubmit = (e) => {
   const toDoInput = document.querySelector('#todo-form input');
   const newToDo = toDoInput.value;
   toDoInput.value = '';
-  const uniqueId = JSON.parse(localStorage.getItem(UNIQUE_ID_KEY)) || { id: 0 };
+  // const uniqueId = JSON.parse(localStorage.getItem(UNIQUE_ID_KEY)) || { id: 0 };
   const newToDoObj = {
     text: newToDo,
-    id: uniqueId.id += 1,
+    // id: (uniqueId.id += 1),
+    id: getUniqueId(newToDo),
   };
-  localStorage.setItem(UNIQUE_ID_KEY, JSON.stringify(uniqueId));
+  // localStorage.setItem(UNIQUE_ID_KEY, JSON.stringify(newToDoObj.id));
   newToDo && (paintToDo(newToDoObj), newToDoObjArr.push(newToDoObj));
 };
 
 export const paintToDo = (newToDoObj) => {
   const toDoList = document.getElementById('todo-list');
-  const toDo = `
+  const toDo = DOMPurify.sanitize(`
     <li id=${newToDoObj.id} class=${list.li}>
       <span>${newToDoObj.text}</span>
       <button id='modal-button' class=${list.button}>
         <img src=${moreIcon} alt='more' />
       </button>
     </li>
-  `
-  ;
+  `);
   toDoList.insertAdjacentHTML('beforeend', toDo);
 };
 
 export const saveToDo = (newToDoObjArr) => {
   const storedToDos = JSON.parse(localStorage.getItem(TODOS_KEY)) || [];
-  newToDoObjArr.map(newToDoObj => {
+  newToDoObjArr.map((newToDoObj) => {
     storedToDos.push(newToDoObj);
   });
   localStorage.setItem(TODOS_KEY, JSON.stringify(storedToDos));
@@ -53,7 +51,7 @@ export const deleteToDo = ({ target }, toDoId) => {
   const modal = document.getElementById('modal_container');
   const li = document.getElementById(toDoId);
   const toDos = JSON.parse(localStorage.getItem(TODOS_KEY));
-  const deleteIndex = toDos.findIndex(toDo => toDo.id === Number(toDoId));
+  const deleteIndex = toDos.findIndex((toDo) => toDo.id === Number(toDoId));
   toDos.splice(deleteIndex, 1);
   localStorage.setItem(TODOS_KEY, JSON.stringify(toDos));
   li.remove();
@@ -83,7 +81,7 @@ export const startEditToDo = ({ target }, toDoId) => {
 // toDo 수정 작업하기
 export const updateToDo = (text, toDoId) => {
   const toDos = JSON.parse(localStorage.getItem(TODOS_KEY));
-  const replaceIndex = toDos.findIndex(toDo => toDo.id === Number(toDoId));
+  const replaceIndex = toDos.findIndex((toDo) => toDo.id === Number(toDoId));
   toDos[replaceIndex].text = text;
   localStorage.setItem(TODOS_KEY, JSON.stringify(toDos));
   const li = document.getElementById(toDoId);

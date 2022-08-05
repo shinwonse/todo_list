@@ -4,6 +4,9 @@ import editButton from './assets/pencil.svg';
 import deleteButton from './assets/trash.svg';
 import { deleteToDo, startEditToDo } from './features';
 
+const editIcon = editButton;
+const deleteIcon = deleteButton;
+
 export const openModal = ({ target }) => {
   if (!target.closest('button')) {
     return;
@@ -19,11 +22,11 @@ export const openModal = ({ target }) => {
         </button>
         <div class=${modalStyle.button_container}>
           <button id='edit-button'>
-            <img src=${editButton} alt='edit'/>
+            <img src=${editIcon} alt='edit'/>
             <p>수정</p>
           </button>
           <button id='delete-button'>
-            <img src=${deleteButton} alt='delete'/>
+            <img src=${deleteIcon} alt='delete'/>
             <p>삭제</p>
           </button>
         </div>
@@ -31,13 +34,13 @@ export const openModal = ({ target }) => {
     </div>
   `;
   rootDiv.insertAdjacentHTML('beforeend', modal);
-  const closeButton = document.getElementById('close_button')
+  const closeButton = document.getElementById('close_button');
   const deleteButton = document.getElementById('delete-button');
   const editButton = document.getElementById('edit-button');
   closeButton.addEventListener('click', closeModal);
   deleteButton.addEventListener('click', (e) => deleteToDo(e, toDoId));
   editButton.addEventListener('click', (e) => startEditToDo(e, toDoId));
-}
+};
 
 export const closeModal = ({ target }) => {
   const rootDiv = document.getElementById('root');
@@ -46,4 +49,4 @@ export const closeModal = ({ target }) => {
     return;
   }
   rootDiv.removeChild(modal);
-}
+};

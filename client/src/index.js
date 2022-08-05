@@ -1,30 +1,25 @@
 import 'styles/reset.css';
 import 'styles/index.css';
 import form from 'styles/form.module.css';
-import index from 'styles/index.module.css';
 import {
   handleToDoSubmit,
   paintToDo,
   TODOS_KEY,
-  showMoreOptions,
-  deleteToDo,
-  editToDo,
   saveToDo,
   newToDoObjArr,
 } from './features';
 import addIcon from './assets/add.svg';
 import { openModal } from './modal';
 import { filter, Search } from './search';
-import DOMPurify from 'dompurify';
 
 const init = () => {
   const rootDiv = document.getElementById('root');
   const toDoForm = document.getElementById('todo-form');
 
-  const toDoFormContents = DOMPurify.sanitize(`
+  const toDoFormContents = `
     <div class='${form.form}'>
       <h1 class='${form.title}'>TODO LIST</h1>
-      <div class='${form.input__wrapper}'>
+      <div id='input-wrapper' class='${form.input__wrapper}'>
         <input class='${form.input}' id='todo-input' data-cy='input'>
           <button class='${form.button}' data-cy='input-button'>
             <img class='${form.button__img}' src='${addIcon}' alt='add'/>
@@ -32,7 +27,7 @@ const init = () => {
         </input>
       </div>
     </div>
-  `);
+  `;
 
   const toDoList = document.createElement('ul');
   toDoList.id = 'todo-list';

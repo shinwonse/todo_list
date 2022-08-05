@@ -9,6 +9,6 @@ const todoListRouter = require('./routes/todolist');
 
 app.use('/todolist', todoListRouter);
 
-app.listen(3000, () => {
+app.listen(process.env.PORT || 3000, () => {
   console.log('listening!');
 })

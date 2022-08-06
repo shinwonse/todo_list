@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router();
+const Todo = require('../schemas/Todo');
 
 router.get('/', (req, res) => {
   res.send('hello todolist hahahaha')

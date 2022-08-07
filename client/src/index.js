@@ -1,48 +1,23 @@
 import 'styles/reset.css';
 import 'styles/index.css';
-import form from 'styles/form.module.css';
-import {
-  handleToDoSubmit,
-  paintToDo,
-  TODOS_KEY,
-  saveToDo,
-  newToDoObjArr,
-} from './features';
-import addIcon from './assets/add.svg';
-import { openModal } from './modal';
-import { filter, Search } from './search';
+import { paintToDo, TODOS_KEY, saveToDo, newToDoObjArr } from './features';
 
-const init = () => {
-  const rootDiv = document.getElementById('root');
-  const toDoForm = document.getElementById('todo-form');
+import { push } from './router';
 
-  const toDoFormContents = `
-    <div class='${form.form}'>
-      <h1 class='${form.title}'>TODO LIST</h1>
-      <div id='input-wrapper' class='${form.input__wrapper}'>
-        <input class='${form.input}' id='todo-input' data-cy='input'>
-          <button class='${form.button}' data-cy='input-button'>
-            <img class='${form.button__img}' src='${addIcon}' alt='add'/>
-          </button>
-        </input>
-      </div>
-    </div>
-  `;
+push('/login');
 
-  const toDoList = document.createElement('ul');
-  toDoList.id = 'todo-list';
-  toDoList.addEventListener('click', openModal);
-  toDoList.insertAdjacentHTML('afterbegin', Search);
-
-  toDoForm.insertAdjacentHTML('beforeend', toDoFormContents);
-  toDoForm.addEventListener('submit', handleToDoSubmit);
-
-  rootDiv.appendChild(toDoList);
-  const searchInput = document.getElementById('search');
-  searchInput.onkeyup = filter;
-};
-
-init();
+// const rootDiv = document.getElementById('root');
+// const toDoList = document.createElement('ul');
+// toDoList.id = 'todo-list';
+// toDoList.addEventListener('click', openModal);
+// toDoList.insertAdjacentHTML('afterbegin', Search);
+//
+// toDoForm.insertAdjacentHTML('beforeend', toDoFormContents);
+// toDoForm.addEventListener('submit', handleToDoSubmit);
+//
+// rootDiv.appendChild(toDoList);
+// const searchInput = document.getElementById('search');
+// searchInput.onkeyup = filter;
 
 window.addEventListener('click', (e) => {
   const rootDiv = document.getElementById('root');

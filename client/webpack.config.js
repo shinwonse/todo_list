@@ -2,7 +2,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 
 module.exports = {
-  entry: './src/app.js',
   output: {
     clean: true,
     assetModuleFilename: 'images/[name][ext]',
@@ -59,7 +58,9 @@ module.exports = {
     alias: {
       styles: path.resolve('./src/styles/'),
       assets: path.resolve('./src/assets/'),
-      // assets: path.resolve(__dirname, './src/assets/'),
     },
+  },
+  devServer: {
+    historyApiFallback: true,
   },
 };

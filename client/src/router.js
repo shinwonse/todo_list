@@ -1,10 +1,10 @@
 import Login from './views/pages/login';
-import ToDoForm from './views/components/toDoForm';
+import TodoList from './views/pages/todoList';
 
 const routes = [
   {
     path: '/',
-    component: ToDoForm,
+    component: TodoList,
   },
   {
     path: '/login',

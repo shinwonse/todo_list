@@ -1,23 +1,11 @@
 import 'styles/reset.css';
 import 'styles/index.css';
-import { paintToDo, TODOS_KEY, saveToDo, newToDoObjArr } from './features';
-
 import { push } from './router';
+import paintToDo from './lib/paintToDo';
+import saveToDo from './lib/saveToDo';
+import newToDoObjArr from './utils/newToDoObjArr';
 
-push('/login');
-
-// const rootDiv = document.getElementById('root');
-// const toDoList = document.createElement('ul');
-// toDoList.id = 'todo-list';
-// toDoList.addEventListener('click', openModal);
-// toDoList.insertAdjacentHTML('afterbegin', Search);
-//
-// toDoForm.insertAdjacentHTML('beforeend', toDoFormContents);
-// toDoForm.addEventListener('submit', handleToDoSubmit);
-//
-// rootDiv.appendChild(toDoList);
-// const searchInput = document.getElementById('search');
-// searchInput.onkeyup = filter;
+push('/');
 
 window.addEventListener('click', (e) => {
   const rootDiv = document.getElementById('root');
@@ -27,8 +15,7 @@ window.addEventListener('click', (e) => {
 
 window.addEventListener('DOMContentLoaded', (e) => {
   e.preventDefault();
-  e.returnValue = '';
-  const savedToDos = localStorage.getItem(TODOS_KEY);
+  const savedToDos = localStorage.getItem('TODOS');
 
   if (savedToDos !== null) {
     const parsedToDos = JSON.parse(savedToDos);
@@ -39,5 +26,4 @@ window.addEventListener('DOMContentLoaded', (e) => {
 window.addEventListener('beforeunload', (e) => {
   e.preventDefault();
   saveToDo(newToDoObjArr);
-  return;
 });

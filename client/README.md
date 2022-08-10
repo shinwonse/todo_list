@@ -68,3 +68,7 @@
 - base64
 
 [5주차](https://shinwonse.notion.site/5-ba83ff9eac5a4239a031daf1af0138fa)
+
+### 6주차 미션
+
+[6주차](https://www.notion.so/shinwonse/6-4c9400ecf2b54e809dba1c8986bd252b)

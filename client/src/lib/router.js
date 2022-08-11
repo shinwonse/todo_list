@@ -21,7 +21,3 @@ export const push = (path) => {
 
   root.innerHTML = component;
 };
-
-window.addEventListener('popstate', () => {
-  push(location.pathname);
-});

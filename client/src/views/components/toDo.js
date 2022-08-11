@@ -1,4 +1,4 @@
-import moreIcon from '../../assets/more.svg';
+import moreIcon from '../../../assets/images/more.svg';
 import ListStyle from '../../styles/list.module.css';
 
 const ToDo = `

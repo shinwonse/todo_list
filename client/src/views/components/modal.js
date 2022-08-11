@@ -1,7 +1,7 @@
 import ModalStyle from 'styles/modal.module.css';
-import closeButtonImg from '../../assets/delete.png';
-import editButton from '../../assets/pencil.svg';
-import deleteButton from '../../assets/trash.svg';
+import closeButtonImg from '../../../assets/images/delete.png';
+import editButton from '../../../assets/images/pencil.svg';
+import deleteButton from '../../../assets/images/trash.svg';
 
 const editIcon = editButton;
 const deleteIcon = deleteButton;

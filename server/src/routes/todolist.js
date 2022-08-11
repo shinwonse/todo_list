@@ -1,16 +1,19 @@
-const express = require('express')
+const express = require('express');
 const router = express.Router();
-const Todo = require('../schemas/Todo');
+
+const Todo = require('../models/todo');
 
 router.get('/', (req, res) => {
-  res.send('hello todolist hahahaha')
-})
+  res.send('hello todolist hahahaha');
+});
 
-router.route('/:id')
+router
+  .route('/:id')
   .post(async (req, res, next) => {
     try {
       const { id } = req.params;
-      res.send(`add todo_${id}`)
+      res.send(`add todo_${id}`);
+      //
     } catch (err) {
       console.error(err);
       next(err);
@@ -33,6 +36,6 @@ router.route('/:id')
       console.error(err);
       next(err);
     }
-  })
+  });
 
 module.exports = router;

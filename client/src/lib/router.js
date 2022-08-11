@@ -1,5 +1,5 @@
-import Login from './views/pages/login';
-import TodoList from './views/pages/todoList';
+import Login from '../views/pages/login';
+import TodoList from '../views/pages/todoList';
 
 const routes = [
   {

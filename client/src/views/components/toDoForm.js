@@ -1,5 +1,5 @@
 import form from 'styles/form.module.css';
-import addIcon from 'assets/add.svg';
+import addIcon from '../../../assets/images/add.svg';
 
 const ToDoForm = `
   <form id='todo-form'>

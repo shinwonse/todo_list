@@ -7,11 +7,12 @@ const connect = require('./models');
 app.use(helmet());
 app.use(cors());
 
-const router = require('./routes');
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
 const todoListRouter = require('./routes/todolist');
 
-app.use('/', router);
-app.use('/todolist', todoListRouter);
+app.use('/', todoListRouter);
 
 app.listen(process.env.PORT || 3000, () => {
   console.log('listening!');

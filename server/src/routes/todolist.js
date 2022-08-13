@@ -1,41 +1,17 @@
 const express = require('express');
 const router = express.Router();
+const Todo = require('../controller/todoController');
 
-const Todo = require('../models/todo');
+// Create Todo
+router.post('/api/todo', Todo.createTodo);
 
-router.get('/', (req, res) => {
-  res.send('hello todolist hahahaha');
-});
+// Delete Todo
+router.delete('/api/todo/:todoID', Todo.deleteTodo);
 
-router
-  .route('/:id')
-  .post(async (req, res, next) => {
-    try {
-      const { id } = req.params;
-      res.send(`add todo_${id}`);
-      //
-    } catch (err) {
-      console.error(err);
-      next(err);
-    }
-  })
-  .delete(async (req, res, next) => {
-    try {
-      const { id } = req.params;
-      res.send(`delete todo_${id}`);
-    } catch (err) {
-      console.error(err);
-      next(err);
-    }
-  })
-  .put(async (req, res, next) => {
-    try {
-      const { id } = req.params;
-      res.send(`edit todo_${id}`);
-    } catch (err) {
-      console.error(err);
-      next(err);
-    }
-  });
+// Get all Todos
+router.get('/api/todo', Todo.findAll);
+
+// Edit Todo
+router.put('/api/todo/:todoID', Todo.editTodo);
 
 module.exports = router;

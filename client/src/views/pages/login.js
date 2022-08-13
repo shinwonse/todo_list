@@ -1,5 +1,4 @@
 import LoginStyle from 'styles/login.module.css';
-import { push } from '../../lib/router';
 
 const Login = `
   <div id='login' class=${LoginStyle.wrapper}>
@@ -14,7 +13,7 @@ const Login = `
         <input class=${LoginStyle.input} type='text'/>
       </div>
       <button id='login-btn' class=${LoginStyle.button}>
-        로그인
+        Login with Github
       </button>
     </form>
   </div>

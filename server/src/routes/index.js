@@ -1,13 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/', async (req, res, next) => {
-  try {
-    res.send('hello index routes!')
-  } catch (err) {
-    console.error(err);
-    next(err);
-  }
+router.get('/api/todo', (req, res) => {
+  res.send('get all');
 });
 
 module.exports = router;

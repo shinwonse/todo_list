@@ -1,4 +1,4 @@
-import newToDoObjArr from '../utils/newToDoObjArr';
+import newToDoObjArr from '../../utils/newToDoObjArr';
 
 const saveToDo = () => {
   const storedToDos = JSON.parse(localStorage.getItem('TODOS')) || [];

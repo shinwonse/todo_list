@@ -1,4 +1,4 @@
-import modal from '../views/components/modal';
+import modal from '../../views/components/modal';
 import closeModal from './closeModal';
 import deleteToDo from './deleteToDo';
 import startEditToDo from './startEditToDo';

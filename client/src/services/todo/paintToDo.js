@@ -1,4 +1,4 @@
-import ToDo from '../views/components/toDo';
+import ToDo from '../../views/components/toDo';
 
 const paintToDo = (newToDoObj) => {
   const toDoList = document.getElementById('todo-list');

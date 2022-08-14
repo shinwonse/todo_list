@@ -12,10 +12,9 @@ export const router = () => {
   const view = routes[location.pathname];
 
   if (view) {
-    document.title = view.title;
     root.innerHTML = view.render;
   } else {
-    history.replaceState(null, null, '/');
+    history.replaceState(null, null, '/login');
     router();
   }
 };

@@ -1,8 +1,8 @@
 import 'styles/reset.css';
 import 'styles/index.css';
 import { push } from './lib/router';
-import submitToDo from './lib/submitToDo';
-import openModal from './lib/openModal';
+import submitToDo from './services/todo/submitToDo';
+import openModal from './services/todo/openModal';
 import { router } from './router';
 router();
 
@@ -10,15 +10,14 @@ const observeUrl = () => {
   const observer = new MutationObserver(() => {
     if (location.pathname === '/login') {
       const button = document.getElementById('login-btn');
-      // button.addEventListener('click', () => push('/'));
       button.addEventListener(
         'click',
-        () =>
-          (location.href =
-            'https://todo-list-wonse.herokuapp.com/api/login/github')
+        () => (location.href = 'http://localhost:3000/login/github/start')
       );
     }
     if (location.pathname === '/') {
+      const data = response.data;
+      console.log(data);
       const toDoForm = document.getElementById('todo-form');
       toDoForm.addEventListener('submit', submitToDo);
       const toDoList = document.getElementById('todo-list');

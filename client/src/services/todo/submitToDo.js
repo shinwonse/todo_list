@@ -1,6 +1,6 @@
 import paintToDo from './paintToDo';
-import newToDoObjArr from '../utils/newToDoObjArr';
-import { getUniqueId } from '../utils/uniqueId';
+import newToDoObjArr from '../../utils/newToDoObjArr';
+import { getUniqueId } from '../../utils/uniqueId';
 
 const submitToDo = (e) => {
   e.preventDefault();

@@ -14,12 +14,10 @@ const routes = [
 
 const root = document.getElementById('root');
 
-const push = (path) => {
+export const push = (path) => {
   history.pushState({}, '', path);
 
   const { component } = routes.find((route) => route.path === path);
 
   root.innerHTML = component;
 };
-
-export { push };

@@ -3,13 +3,20 @@ import 'styles/index.css';
 import { push } from './lib/router';
 import submitToDo from './lib/submitToDo';
 import openModal from './lib/openModal';
-push('/login');
+import { router } from './router';
+router();
 
 const observeUrl = () => {
   const observer = new MutationObserver(() => {
     if (location.pathname === '/login') {
       const button = document.getElementById('login-btn');
-      button.addEventListener('click', () => push('/'));
+      // button.addEventListener('click', () => push('/'));
+      button.addEventListener(
+        'click',
+        () =>
+          (location.href =
+            'https://todo-list-wonse.herokuapp.com/api/login/github')
+      );
     }
     if (location.pathname === '/') {
       const toDoForm = document.getElementById('todo-form');
